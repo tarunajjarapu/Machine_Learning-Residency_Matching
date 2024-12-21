@@ -54,7 +54,7 @@ To enhance predictive power, the following features were derived:
 ### Libraries Used
 - **Data Handling and Visualization**: `pandas`, `matplotlib`
 - **Preprocessing and Modeling**: `scikit-learn`
-- **Metrics**: `r2_score`
+- **Metrics**: `mean_squared_error`, `r2_score`
 
 ### Pipeline
 1. **Data Importing and Cleaning**:
@@ -63,8 +63,33 @@ To enhance predictive power, the following features were derived:
 2. **Feature Engineering**:
    - Created meaningful features from raw data to improve predictive capability.
 3. **Modeling**:
-   - Used `MLPRegressor` (Multi-layer Perceptron) for regression tasks.
-   - Evaluated using `r2_score` to measure model performance.
+   Five models were trained and evaluated for predicting unfilled positions:
+
+   - **Decision Tree Regressor**:
+     A grid search was used to tune hyperparameters such as `max_depth`, `min_samples_split`, `min_samples_leaf`, and `max_features`. The model was trained and validated using 5-fold cross-validation, with the best estimator evaluated on the test data.
+
+   - **Random Forest Regressor**:
+     This ensemble method involved tuning `n_estimators`, `max_depth`, `min_samples_leaf`, and `max_features`. Like the Decision Tree model, the Random Forest Regressor used grid search with 5-fold cross-validation to identify the best parameters.
+
+   - **K-Nearest Neighbors (KNN)**:
+     A pipeline was built with data scaling (`StandardScaler`) and the `KNeighborsRegressor`. The hyperparameter tuning process focused on `n_neighbors`, `weights`, and `algorithm`. Grid search with cross-validation ensured the optimal combination of parameters.
+
+   - **Neural Network (MLP Regressor)**:
+     A pipeline including `StandardScaler` and `MLPRegressor` was created. Hyperparameters like `hidden_layer_sizes` and `activation` functions were optimized through grid search. The model was trained for a maximum of 1000 iterations.
+
+   - **Linear Regression**:
+     As a baseline model, Linear Regression was implemented and evaluated alongside the other methods.
+
+   Each model's predictions were evaluated using:
+   - **Mean Squared Error (MSE)**
+   - **R² Score**
+
+4. **Model Evaluation and Comparison**:
+   - A comparison was made across the models using both MSE and R² scores.
+   - Visualizations were created to compare actual versus predicted values for each model, highlighting performance differences.
+
+5. **Cross-Validation Score Comparison**:
+   Cross-validation scores for each model were computed and normalized by the number of data points. These scores were visualized as a bar chart to compare model performance during cross-validation.
 
 ---
 
